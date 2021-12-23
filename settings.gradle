@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'cheese-admin-cms'
+include 'cheese-domain'
+include 'cheese-admin'
+include 'cheese-core'
