@@ -110,14 +110,30 @@ INSERT INTO admin_role_privilege_join (role_id, privilege_id) VALUES (3, 7);
 # )
 #     ENGINE = InnoDb DEFAULT CHARSET=utf8;
 #
-# CREATE TABLE IF NOT EXISTS users (
-#                                      id INT AUTO_INCREMENT PRIMARY KEY,
-#                                      username VARCHAR(256) NOT NULL,
-#     password VARCHAR(256) NOT NULL,
-#     enabled TINYINT(1),
-#     UNIQUE KEY unique_username(username)
-#     )
-#     ENGINE = InnoDb DEFAULT CHARSET=utf8;
+CREATE TABLE `cheese`.`users` (
+                                  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                  `name` VARCHAR(128) NOT NULL DEFAULT '' COMMENT '이름',
+                                  `cp` VARCHAR(20) NOT NULL COMMENT '휴대폰 번호',
+                                  `password` VARCHAR(128) NULL DEFAULT NULL COMMENT '패스워드',
+                                  `sex` CHAR(1) NULL DEFAULT 'M' COMMENT '성별',
+                                  `cheese_money_total` INT(10) UNSIGNED NULL DEFAULT '0' COMMENT '치즈 머니 토탈 금액',
+                                  `birth_year` VARCHAR(4) NULL COMMENT '년',
+                                  `birth_month` VARCHAR(2) NULL COMMENT '월',
+                                  `birth_day` VARCHAR(2) NULL COMMENT '일',
+                                  `email` VARCHAR(45) NULL DEFAULT '' COMMENT '이메일',
+                                  `deleted_reason` VARCHAR(200) NULL DEFAULT NULL COMMENT '탈퇴 사유',
+                                  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일자',
+                                  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+                                  `deleted_at` TIMESTAMP NULL COMMENT '탈퇴 일자',
+                                  `last_login` TIMESTAMP NULL DEFAULT NULL COMMENT '마지막 로그인 일자',
+                                  `is_active` TINYINT(1) unsigned NOT NULL DEFAULT 1 COMMENT '활성 여부',
+                                  `is_account` TINYINT(1) unsigned NOT NULL DEFAULT 0 COMMENT '계좌 여부',
+                                  `is_receive_push` TINYINT(1) unsigned NOT NULL DEFAULT 1 COMMENT '푸시 알림 여부',
+                                  `is_receive_cheese` TINYINT(1) unsigned NOT NULL DEFAULT 1 COMMENT '적립금 알림 여부 ',
+                                  `is_receive_pay` TINYINT(1) unsigned NOT NULL DEFAULT 1 COMMENT '결제 알림 여부',
+                                  `is_receive_promotion` TINYINT(1) unsigned NOT NULL DEFAULT 1 COMMENT '프로모션/이벤트 알림 여부',
+                                  PRIMARY KEY (`id`))
+    COMMENT = '사용자 목록';
 #
 # CREATE TABLE IF NOT EXISTS authorities (
 #     username VARCHAR(256) NOT NULL,
@@ -162,7 +178,7 @@ INSERT INTO oauth_client_details
    (client_id, client_secret, scope, authorized_grant_types,
    web_server_redirect_uri, authorities, access_token_validity,
    refresh_token_validity, additional_information, autoapprove)
-VALUES ('testclient', '$2a$10$4R/rWflN2RDiGZ3TvGplN.Z7fpILYAop9kJKqk7FgZnHCGhwFSGYS', 'all', 'password,refresh_token', null, null, 36000, 36000, null, true);
+VALUES ('testclient', '$2a$10$4R/rWflN2RDiGZ3TvGplN.Z7fpILYAop9kJKqk7FgZnHCGhwFSGYS', 'all', 'password,refresh_token', null, null, 300, 36000, null, true);
 
 CREATE TABLE `cheese`.`categories` (
                                        `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

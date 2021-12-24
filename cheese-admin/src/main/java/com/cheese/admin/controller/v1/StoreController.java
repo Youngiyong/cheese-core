@@ -28,6 +28,7 @@ import java.util.Optional;
 
 import static com.cheese.admin.helper.PaginationHelper.orderByConvert;
 
+@CrossOrigin("*")
 @RequestMapping("/v1/stores")
 @RestController
 public class StoreController {
@@ -41,7 +42,7 @@ public class StoreController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM', 'STORE_DELETE_PRIVILEGE')")
     @GetMapping("/{id}")
     public ResponseEntity<Response<StoreDto.StoreResponse>> findStoreById(
-            @ApiParam(value = "가맹점 시퀀스 아이디") @PathVariable Long id){
+            @ApiParam(value = "가맹점 시퀀스") @PathVariable Long id){
 
         Optional<Store> store = storeRepository.findById(id);
 
@@ -67,7 +68,7 @@ public class StoreController {
             @RequestParam(defaultValue = "createdAt,desc") @ApiParam(value = "정렬 데이터 예)createdAt,desc ") String[] sort) {
         try {
             List<Order> orders = orderByConvert(sort);
-            page = (page>1) ? 1 : 1;
+            page = (page<1) ? 1 : page;
             Pageable pagingSort = PageRequest.of(page - 1, size, Sort.by(orders));
 
             Page<StoreDto.StoreListResponse> pageTuts;
@@ -97,7 +98,8 @@ public class StoreController {
             @RequestParam(defaultValue = "createdAt,desc") @ApiParam(value = "정렬 데이터 예)createdAt,desc ") String[] sort) {
         try {
             List<Order> orders = orderByConvert(sort);
-            page = (page>1) ? 1 : 1;
+            page = (page<1) ? 1 : page;
+
             Pageable pagingSort = PageRequest.of(page - 1, size, Sort.by(orders));
 
             Page<StoreDto.StoreUserListResponse> pageTuts;
@@ -120,7 +122,7 @@ public class StoreController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM', 'STORE_DELETE_PRIVILEGE')")
     @GetMapping("/users/{id}")
     public ResponseEntity<Response<StoreDto.StoreUserResponse>> findStoreUserById(
-            @ApiParam(value = "가맹점 직원 아이디") @PathVariable Long id){
+            @ApiParam(value = "가맹점 직원 시퀀스") @PathVariable Long id){
 
         Optional<StoreUser> storeUser = storeUserRepository.findById(id);
 
@@ -151,10 +153,10 @@ public class StoreController {
 //            storeUserRepository.save(storeUser);
 //        }
 //    }
-
+//
 //    @PostConstruct
-//    public void initializing() {
-//        for (int i = 0; i < 200; i++) {
+//    public void initializing2() {
+//        for (int i = 0; i < 500; i++) {
 //            Store store = Store.builder()
 //                    .storeNumber("AL"+ String.valueOf(i))
 //                    .storeGroupId(1)

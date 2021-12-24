@@ -31,7 +31,7 @@ public class PaginationResponse<T> {
         this.code = ErrorCode.SUCCESS.getCode();
         this.data = page.getContent();
         this.size = page.getSize();
-        this.currentPages = page.getNumber();
+        this.currentPages = page.getNumber()+1;
         this.currentElements = page.getNumberOfElements();
         this.totalPages = page.getTotalPages();
         this.totalElements = page.getTotalElements();

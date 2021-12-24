@@ -20,11 +20,15 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "C0002", "Login input is invalid"),
 
     //Store
-    NOT_FOUND_STORE(404, "C1000", "존재하지 않는 가맹점입니다."),
-    NOT_FOUND_STORE_USER(404, "C1000", "존재하지 않는 가맹점입니다."),
+    NOT_FOUND_STORE(404, "C8000", "존재하지 않는 가맹점입니다."),
+    NOT_FOUND_STORE_USER(404, "C8000", "존재하지 않는 가맹점입니다."),
 
     INTERNAL_SERVER_ERROR_STORE_LIST(500, "C8002", "STORE LIST API INTERNAL SERVER ERROR"),
     INTERNAL_SERVER_ERROR_STORE_USER_LIST(500, "C8002", "STORE USER LIST API INTERNAL SERVER ERROR"),
+
+    //User
+    NOT_FOUND_USER(404, "C9000", "존재하지 않는 유저입니다.."),
+    INTERNAL_SERVER_ERROR_USER_LIST(500, "C9002", "존재하지 않는 유저 리스트입니다."),
 
     INTERNAL_ORDER_CONVERT_SERVER_ERROR(500, "C8000", "Internal Server Error"),
 
