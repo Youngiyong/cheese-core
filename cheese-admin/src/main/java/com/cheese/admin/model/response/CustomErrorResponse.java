@@ -40,10 +40,6 @@ public class CustomErrorResponse {
         return this;
     }
 
-    public CustomErrorResponse errors(Errors errors) {
-        setCustomFieldErrors(errors.getFieldErrors());
-        return this;
-    }
 
     //BindingResult.getFieldErrors() 메소드를 통해 전달받은 fieldErrors
     public void setCustomFieldErrors(List<FieldError> fieldErrors) {
@@ -58,6 +54,12 @@ public class CustomErrorResponse {
             ));
         });
     }
+
+    public CustomErrorResponse errors(Errors errors) {
+        setCustomFieldErrors(errors.getFieldErrors());
+        return this;
+    }
+
 
     //parameter 검증에 통과하지 못한 필드가 담긴 클래스이다.
     public static class CustomFieldError {

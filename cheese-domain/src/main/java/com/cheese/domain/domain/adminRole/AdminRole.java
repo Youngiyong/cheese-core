@@ -2,7 +2,7 @@ package com.cheese.domain.domain.adminRole;
 
 
 import com.cheese.domain.domain.adminRolePrivilege.AdminRolePrivilege;
-import com.cheese.domain.domain.enums.EAdminRole;
+import com.cheese.domain.domain.admin.EAdminRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

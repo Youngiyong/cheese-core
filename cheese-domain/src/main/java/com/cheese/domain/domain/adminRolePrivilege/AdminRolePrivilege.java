@@ -1,6 +1,5 @@
 package com.cheese.domain.domain.adminRolePrivilege;
 
-import com.cheese.domain.domain.enums.EAdminRolePrivilege;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

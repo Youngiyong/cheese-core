@@ -1,11 +1,11 @@
-package com.cheese.core.error;
+package com.cheese.core.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
 @AllArgsConstructor
-public enum ErrorCode {
+public enum CheeseCode {
     // TODO: Need to refine
     SUCCESS(200, "C0000", "OK"),
     // Common

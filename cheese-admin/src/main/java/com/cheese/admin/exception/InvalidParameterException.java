@@ -1,6 +1,7 @@
 package com.cheese.admin.exception;
 
-import com.cheese.core.error.ErrorCode;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
 import org.springframework.validation.Errors;
 
 public class InvalidParameterException extends CustomException {
@@ -10,7 +11,7 @@ public class InvalidParameterException extends CustomException {
     private final Errors errors;
 
     public InvalidParameterException(Errors errors) {
-        super(ErrorCode.INVALID_PARAMETER);
+        super(CheeseCode.INVALID_PARAMETER);
         this.errors = errors;
     }
 

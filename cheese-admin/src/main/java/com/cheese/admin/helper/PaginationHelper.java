@@ -1,7 +1,7 @@
 package com.cheese.admin.helper;
 
-import com.cheese.core.error.ErrorCode;
-import com.cheese.admin.exception.CustomException;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 
@@ -39,7 +39,7 @@ public class PaginationHelper {
 
             return orders;
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.INTERNAL_ORDER_CONVERT_SERVER_ERROR);
+            throw new CustomException(CheeseCode.INTERNAL_ORDER_CONVERT_SERVER_ERROR);
         }
 
     }

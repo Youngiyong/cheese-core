@@ -1,9 +1,9 @@
 package com.cheese.admin.controller.v1;
 
-import com.cheese.core.error.ErrorCode;
-import com.cheese.admin.exception.CustomException;
+import com.cheese.core.model.response.CheeseResponse;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
 import com.cheese.admin.model.response.PaginationResponse;
-import com.cheese.admin.model.response.Response;
 import com.cheese.admin.model.response.StoreDto;
 import com.cheese.domain.domain.store.Store;
 import com.cheese.domain.domain.store.StoreRepository;
@@ -21,8 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,17 +39,17 @@ public class StoreController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM', 'STORE_DELETE_PRIVILEGE')")
     @GetMapping("/{id}")
-    public ResponseEntity<Response<StoreDto.StoreResponse>> findStoreById(
+    public ResponseEntity<CheeseResponse<StoreDto.StoreResponse>> findStoreById(
             @ApiParam(value = "가맹점 시퀀스") @PathVariable Long id){
 
         Optional<Store> store = storeRepository.findById(id);
 
         if(!store.isPresent()){
-            throw new CustomException(ErrorCode.NOT_FOUND_STORE);
+            throw new CustomException(CheeseCode.NOT_FOUND_STORE);
         }
 
-        Response response = Response.builder()
-                            .code(ErrorCode.SUCCESS.getCode())
+        CheeseResponse response = CheeseResponse.builder()
+                            .code(CheeseCode.SUCCESS.getCode())
                             .data(store.get()).build();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -84,7 +82,7 @@ public class StoreController {
             return new ResponseEntity<PaginationResponse<StoreDto.StoreListResponse>>(res, HttpStatus.OK);
 
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR_STORE_LIST);
+            throw new CustomException(CheeseCode.INTERNAL_SERVER_ERROR_STORE_LIST);
         }
     }
 
@@ -115,23 +113,23 @@ public class StoreController {
             return new ResponseEntity<PaginationResponse<StoreDto.StoreUserListResponse>>(res, HttpStatus.OK);
 
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR_STORE_USER_LIST);
+            throw new CustomException(CheeseCode.INTERNAL_SERVER_ERROR_STORE_USER_LIST);
         }
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM', 'STORE_DELETE_PRIVILEGE')")
     @GetMapping("/users/{id}")
-    public ResponseEntity<Response<StoreDto.StoreUserResponse>> findStoreUserById(
+    public ResponseEntity<CheeseResponse<StoreDto.StoreUserResponse>> findStoreUserById(
             @ApiParam(value = "가맹점 직원 시퀀스") @PathVariable Long id){
 
         Optional<StoreUser> storeUser = storeUserRepository.findById(id);
 
         if(!storeUser.isPresent()){
-            throw new CustomException(ErrorCode.NOT_FOUND_STORE_USER);
+            throw new CustomException(CheeseCode.NOT_FOUND_STORE_USER);
         }
 
-        Response response = Response.builder()
-                                .code(ErrorCode.SUCCESS.getCode())
+        CheeseResponse response = CheeseResponse.builder()
+                                .code(CheeseCode.SUCCESS.getCode())
                                 .data(storeUser.get())
                                 .build();
 

@@ -1,7 +1,7 @@
 package com.cheese.admin.advice;
 
-import com.cheese.core.error.ErrorCode;
-import com.cheese.admin.exception.CustomException;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
 import com.cheese.admin.exception.InvalidParameterException;
 import com.cheese.admin.model.response.CustomErrorResponse;
 import com.cheese.admin.model.response.ErrorResponse;
@@ -24,15 +24,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidParameterException.class)
     protected ResponseEntity<CustomErrorResponse> handleInvalidParameterException(InvalidParameterException e) {
         log.error("handleInvalidParameterException", e);
-        ErrorCode errorCode = e.getErrorCode();
+        CheeseCode cheeseCode = e.getErrorCode();
 
         final CustomErrorResponse response = CustomErrorResponse
                 .builder()
-                .status(errorCode.getStatus())
-                .code(errorCode.getCode())
+                .status(cheeseCode.getStatus())
+                .code(cheeseCode.getCode())
                 .errors(e.getErrors());
 
-        return new ResponseEntity<>(response, HttpStatus.resolve(errorCode.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.resolve(cheeseCode.getStatus()));
     }
 
     /**
@@ -41,15 +41,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
         log.error("handleCustomException", e);
-        ErrorCode errorCode = e.getErrorCode();
+        CheeseCode cheeseCode = e.getErrorCode();
 
         ErrorResponse response = ErrorResponse
                 .builder()
-                .status(errorCode.getStatus())
-                .code(errorCode.getCode())
-                .message(errorCode.getMessage());
+                .status(cheeseCode.getStatus())
+                .code(cheeseCode.getCode())
+                .message(cheeseCode.getMessage());
 
-        return new ResponseEntity<>(response, HttpStatus.resolve(errorCode.getStatus()));
+        return new ResponseEntity<>(response, HttpStatus.resolve(cheeseCode.getStatus()));
     }
 
     @ExceptionHandler(Exception.class)
@@ -58,7 +58,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorResponse response = ErrorResponse
                 .builder()
-                .code(ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+                .code(CheeseCode.INTERNAL_SERVER_ERROR.getCode());
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }

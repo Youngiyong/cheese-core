@@ -1,4 +1,4 @@
-package com.cheese.domain.domain.enums;
+package com.cheese.domain.domain.userRoles;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

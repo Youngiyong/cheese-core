@@ -1,14 +1,10 @@
 package com.cheese.admin.controller.v1;
 
-import com.cheese.admin.exception.CustomException;
 import com.cheese.admin.model.response.PaginationResponse;
-import com.cheese.admin.model.response.Response;
-import com.cheese.admin.model.response.StoreDto;
 import com.cheese.admin.model.response.UserDto;
-import com.cheese.core.error.ErrorCode;
-import com.cheese.domain.domain.store.Store;
-import com.cheese.domain.domain.store.StoreRepository;
-import com.cheese.domain.domain.storeUser.StoreUserRepository;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
+import com.cheese.core.model.response.CheeseResponse;
 import com.cheese.domain.domain.users.User;
 import com.cheese.domain.domain.users.UserRepository;
 import io.swagger.annotations.ApiParam;
@@ -22,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,17 +33,17 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM', 'STORE_DELETE_PRIVILEGE')")
     @GetMapping("/{id}")
-    public ResponseEntity<Response<UserDto.UserResponse>> findStoreById(
+    public ResponseEntity<CheeseResponse<UserDto.UserResponse>> findStoreById(
             @ApiParam(value = "유저 시퀀스") @PathVariable Long id){
 
         Optional<User> user = userRepository.findById(id);
 
         if(!user.isPresent()){
-            throw new CustomException(ErrorCode.NOT_FOUND_USER);
+            throw new CustomException(CheeseCode.NOT_FOUND_USER);
         }
 
-        Response response = Response.builder()
-                .code(ErrorCode.SUCCESS.getCode())
+        CheeseResponse response = CheeseResponse.builder()
+                .code(CheeseCode.SUCCESS.getCode())
                 .data(user.get()).build();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -81,7 +76,7 @@ public class UserController {
             return new ResponseEntity<PaginationResponse<UserDto.UserListResponse>>(res, HttpStatus.OK);
 
         } catch (Exception e) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR_USER_LIST);
+            throw new CustomException(CheeseCode.INTERNAL_SERVER_ERROR_USER_LIST);
         }
     }
 

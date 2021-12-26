@@ -1,9 +1,9 @@
 package com.cheese.admin.controller.v1;
 
-import com.cheese.core.error.ErrorCode;
-import com.cheese.admin.exception.CustomException;
+import com.cheese.core.exception.CheeseCode;
 import com.cheese.admin.exception.InvalidParameterException;
 import com.cheese.admin.model.request.Member;
+import com.cheese.core.exception.CustomException;
 import com.cheese.domain.dto.request.LoginRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -51,7 +51,7 @@ public class HealthCheckController {
             case "1":
                 System.out.println("hi");
 //                break;
-                throw new CustomException(ErrorCode.EMAIL_DUPLICATION);
+                throw new CustomException(CheeseCode.EMAIL_DUPLICATION);
             case "3":
                 int a = 3 / 0;
                 break;

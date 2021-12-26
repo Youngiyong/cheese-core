@@ -1,9 +1,6 @@
-package com.cheese.core.dto.response;
+package com.cheese.core.model.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -16,5 +13,12 @@ public class CheeseResponse<T> {
     private String code;
     private LocalDateTime timestamp = LocalDateTime.now();
     private T data;
+
+    @Builder
+    public CheeseResponse(String code, T data){
+        this.code = code;
+        this.data = data;
+    }
+
 
 }

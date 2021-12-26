@@ -1,6 +1,6 @@
 package com.cheese.admin.model.response;
 
-import com.cheese.core.error.ErrorCode;
+import com.cheese.core.exception.CheeseCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class PaginationResponse<T> {
     public PaginationResponse(){}
 
     public PaginationResponse(Page<T> page){
-        this.code = ErrorCode.SUCCESS.getCode();
+        this.code = CheeseCode.SUCCESS.getCode();
         this.data = page.getContent();
         this.size = page.getSize();
         this.currentPages = page.getNumber()+1;

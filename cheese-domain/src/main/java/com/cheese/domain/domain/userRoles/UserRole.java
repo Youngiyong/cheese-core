@@ -1,6 +1,6 @@
 package com.cheese.domain.domain.userRoles;
 
-import com.cheese.domain.domain.enums.EAdminRole;
+import com.cheese.domain.domain.admin.EAdminRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

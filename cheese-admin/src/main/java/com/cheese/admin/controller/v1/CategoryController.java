@@ -1,8 +1,8 @@
 package com.cheese.admin.controller.v1;
 
-import com.cheese.admin.exception.CustomException;
-import com.cheese.admin.model.response.Response;
-import com.cheese.core.error.ErrorCode;
+import com.cheese.core.exception.CheeseCode;
+import com.cheese.core.exception.CustomException;
+import com.cheese.core.model.response.CheeseResponse;
 import com.cheese.domain.domain.category.Category;
 import com.cheese.domain.domain.category.CategoryRepository;
 import io.swagger.annotations.ApiParam;
@@ -28,15 +28,15 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM')")
     @GetMapping
-    public ResponseEntity<Response<List<Category>>> findAllCategory() {
+    public ResponseEntity<CheeseResponse<List<Category>>> findAllCategory() {
 
         List<Category> categories = categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "sort"));
 
         if (categories.isEmpty()) {
-            throw new CustomException(ErrorCode.CATEGORY_LIST_NOT_FOUND);
+            throw new CustomException(CheeseCode.CATEGORY_LIST_NOT_FOUND);
         }
-        Response response = Response.builder()
-                .code(ErrorCode.SUCCESS.getCode())
+        CheeseResponse response = CheeseResponse.builder()
+                .code(CheeseCode.SUCCESS.getCode())
                 .data(categories)
                 .build();
 
@@ -45,16 +45,16 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ADMIN_CUSTOM')")
     @GetMapping("/{id}")
-    public ResponseEntity<Response<Category>> findCategoryById(
+    public ResponseEntity<CheeseResponse<Category>> findCategoryById(
             @ApiParam(value = "카테고리 아이디") @PathVariable Long id){
 
         Optional<Category> category = categoryRepository.findById(id);
 
         if (!category.isPresent()) {
-            throw new CustomException(ErrorCode.CATEGORY_LIST_NOT_FOUND);
+            throw new CustomException(CheeseCode.CATEGORY_LIST_NOT_FOUND);
         }
-        Response response = Response.builder()
-                .code(ErrorCode.SUCCESS.getCode())
+        CheeseResponse response = CheeseResponse.builder()
+                .code(CheeseCode.SUCCESS.getCode())
                 .data(category.get())
                 .build();
 

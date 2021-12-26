@@ -6,7 +6,7 @@ import com.cheese.domain.domain.admin.Admin;
 import com.cheese.domain.domain.admin.AdminRepository;
 import com.cheese.domain.domain.adminRole.AdminRole;
 import com.cheese.domain.domain.adminRole.AdminRoleRepository;
-import com.cheese.domain.domain.enums.EAdminRole;
+import com.cheese.domain.domain.admin.EAdminRole;
 import com.cheese.domain.dto.request.SignupRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
