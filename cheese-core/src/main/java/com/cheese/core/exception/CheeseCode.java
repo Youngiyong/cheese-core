@@ -13,6 +13,7 @@ public enum CheeseCode {
     UNAUTHORIZED_INSUFFICIENT_PERMISSIONS(401,"C0003","UNAUTHORIZED_INSUFFICIENT_PERMISSIONS"),
     // Common
     INVALID_PARAMETER(400, "C0004", "Invalid Request Data"),
+    INVALID_GRANT(400, "C0004", "Invalid Bad Credentials Username/Password"),
     INVALID_INPUT_VALUE(400, "C0001", " Invalid Input Value"),
     METHOD_NOT_ALLOWED(405, "C0002", " Invalid Input Value"),
     HANDLE_ACCESS_DENIED(403, "C0006", "Access is Denied"),

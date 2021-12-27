@@ -22,21 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    /**
-     * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생합
-     */
-    @ExceptionHandler(AccessDeniedException.class)
-    protected ResponseEntity<CustomErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
-        log.error("handleAccessDeniedException", e);
-        CheeseCode cheeseCode = CheeseCode.HANDLE_ACCESS_DENIED;
 
-        final CustomErrorResponse response = CustomErrorResponse
-                .builder()
-                .status(cheeseCode.getStatus())
-                .code(cheeseCode.getCode());
-
-        return new ResponseEntity<>(response, HttpStatus.resolve(cheeseCode.getStatus()));
-    }
     /**
      *   @Valid 검증 실패 시 Catch
      */
@@ -71,6 +57,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.resolve(cheeseCode.getStatus()));
     }
 
+
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
         log.error("handleEntityNotFoundException", e);
@@ -82,19 +69,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    protected ResponseEntity<CheeseErrorResponse> handleException(AuthenticationException e,
-                                                            HttpServletRequest request) {
-
-        log.error("handleEntityNotFoundException:", e, "request:", request);
-        CheeseCode cheeseCode = CheeseCode.UNAUTHORIZED;
-        CheeseErrorResponse res = CheeseErrorResponse.builder()
-                .message(cheeseCode.getMessage())
-                .code(cheeseCode.getCode())
-                .status(cheeseCode.getStatus())
-                .build();
-
-        return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
 }
