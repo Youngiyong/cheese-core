@@ -26,7 +26,6 @@ import java.util.Optional;
 
 import static com.cheese.admin.helper.PaginationHelper.orderByConvert;
 
-@CrossOrigin("*")
 @RequestMapping("/v1/stores")
 @RestController
 public class StoreController {

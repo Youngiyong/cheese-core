@@ -1,9 +1,7 @@
 package com.cheese.admin.config;
 
-import com.cheese.admin.advice.RestExceptionHandler;
 import com.cheese.admin.exception.CustomAuthExceptionHandler;
 import com.cheese.admin.service.AdminDetailsServiceImpl;
-import com.cheese.core.exception.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

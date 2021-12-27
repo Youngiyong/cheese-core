@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import static com.cheese.admin.helper.PaginationHelper.orderByConvert;
 
-@CrossOrigin("*")
 @RequestMapping("/v1/users")
 @RestController
 public class UserController {

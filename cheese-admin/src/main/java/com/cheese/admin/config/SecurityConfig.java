@@ -7,17 +7,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 @Configuration
 @Order(1)
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -28,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //TODO: VEREIFY - Does this simply mean ALL endpoints are authenticated?
         //Should we list out the /login and /oauth/authorize endpoints specifically, then?
-        http.requestMatchers()
+        http
+                .requestMatchers()
                 .antMatchers( "/oauth/authorize")
                 .and().authorizeRequests().anyRequest().authenticated();
-
     }
 
     @Override
@@ -62,6 +61,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(adminDetailsService);
         return provider;
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter c = new CommonsRequestLoggingFilter();
+        c.setIncludeHeaders(true);
+        c.setIncludeQueryString(true);
+        c.setIncludePayload(true);
+        c.setIncludeClientInfo(true);
+        c.setMaxPayloadLength(100000);
+        return c;
     }
 
 }
